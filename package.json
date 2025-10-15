@@ -6,7 +6,7 @@
   "scripts": {
     "-[ Nuxt ]-------------------------------------------------------------": "",
     "build": "npx nuxt cleanup && npx nuxt build ",
-    "dev": "nuxt dev --dotenv .env",
+    "dev": "nuxt dev --dotenv .env.local",
     "dev-cron": "vercel-cron",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

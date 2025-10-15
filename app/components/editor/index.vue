@@ -80,7 +80,9 @@ const designerOption = ref<any>({
 // デザイナー系
 
 /** デザイナーを生成 */
-const generateDesigner = async () => {
+const generateDesigner = async (
+  template: PdfTemplate | undefined = undefined
+) => {
   // // 初期化用フォントが取得完了していない場合があるためこちらでも取得処理を実行
   if (designerOption.value.font === null) {
     designerOption.value.font = await GetFont();
@@ -93,7 +95,7 @@ const generateDesigner = async () => {
   await nextTick();
   designer.value = new Designer({
     domContainer: targetElm.value,
-    template: InitPdfTemplate(),
+    template: template ?? InitPdfTemplate(),
     options: ObjectCopy(designerOption.value),
     plugins,
   });
@@ -159,10 +161,7 @@ const resetSchemas = (removeKeys: string[] | undefined = undefined) => {
         }
       });
     });
-    updateGeneratorTemplate(
-      { ...templateData.value, schemas: [temp.schema] },
-      false
-    );
+    updateGeneratorTemplate({ ...templateData.value, schemas: [temp.schema] });
   } catch (err) {
     console.error("resetSchemas", err);
   }
@@ -177,13 +176,10 @@ const designerDestroy = async () => {
 };
 
 /** デザイナーを [ 引数:template ] で再描画 */
-const updateGeneratorTemplate = (template: PdfTemplate, force = false) => {
-  // if (!ObjectCompare(template, templateDataBefore.value) || force === true) {
-  // templateDataBefore.value = ObjectCopy(template);
+const updateGeneratorTemplate = (template: PdfTemplate) => {
   if (designer.value !== null) {
     designer.value.updateTemplate(ObjectCopy(template));
   }
-  // }
 };
 
 // --------------------------------------------------------
@@ -276,50 +272,65 @@ const targetListItemRemove = (row: PdfTemplateListRow, name: string) => {
 // ファイル操作系
 
 // テンプレート変更
-const { open: jsonFileSelect, onChange: onChangeJsonFileSelect } =
-  useFileDialog({
-    accept: ".json", // Set to accept only image files
-    directory: false, // Select directories instead of files if set true
-  });
-
-onChangeJsonFileSelect(async (files) => {
-  /** do something with files */
-  if (!files || files?.length === 0) return;
-  const file = files[0];
-  if (!file) return;
-  fileName.value = file.name.replace(/\.json$/, "");
-  const text = await FileToText(file);
-  const templateJson = JSON.parse(text);
-  const { template, meta } = SetTemplateTypeSafe(templateJson);
-  setData(template, meta);
-
-  // setTemplate(template);
-  updateGeneratorTemplate(template, true);
+const {
+  open: jsonFileSelect,
+  onChange: onChangeJsonFileSelect,
+  reset: resetJsonFileSelect,
+} = useFileDialog({
+  accept: ".json", // Set to accept only image files
+  directory: false, // Select directories instead of files if set true
 });
 
-const { open: basePdfFileSelect, onChange: onChangeBasePdfSelect } =
-  useFileDialog({
-    accept: "application/pdf", // Set to accept only image files
-    directory: false, // Select directories instead of files if set true
-  });
+onChangeJsonFileSelect(async (files) => {
+  try {
+    /** do something with files */
+    if (!files || files?.length === 0) return;
+    const file = files[0];
+    if (!file) return;
+    fileName.value = file.name.replace(/\.json$/, "");
+    const text = await FileToText(file);
+    const templateJson = JSON.parse(text);
+    const { template, meta } = SetTemplateTypeSafe(templateJson);
+    setData(template, meta);
+    generateDesigner(template);
+  } catch (err) {
+    console.error("onChangeJsonFileSelect", err);
+  } finally {
+    resetJsonFileSelect();
+  }
+});
+
+const {
+  open: basePdfFileSelect,
+  onChange: onChangeBasePdfSelect,
+  reset: resetBasePdfSelect,
+} = useFileDialog({
+  accept: "application/pdf", // Set to accept only image files
+  directory: false, // Select directories instead of files if set true
+});
 
 // BasePDFの変更
 onChangeBasePdfSelect(async (files) => {
-  /** do something with files */
-  if (!files || files?.length === 0) return;
-  const file = files[0];
-  if (!file) return;
-  const dataUrl = await FileToDataUrl(file);
-  if (!designer.value) return [];
-  const template = designer.value.getTemplate();
-  template.basePdf = dataUrl;
-  updateGeneratorTemplate(template);
-  generateDesigner();
+  try {
+    /** do something with files */
+    if (!files || files?.length === 0) return;
+    const file = files[0];
+    if (!file) return;
+    const dataUrl = await FileToDataUrl(file);
+    if (!designer.value) return [];
+    // const template = designer.value.getTemplate();
+    const template = templateData.value;
+    template.basePdf = dataUrl;
+    updateGeneratorTemplate(template);
+  } catch (err) {
+    console.error("onChangeBasePdfSelect", err);
+  } finally {
+    resetBasePdfSelect();
+  }
 });
 
 const downloadTemplateJson = () => {
   if (!designer.value) return [];
-
   const template = designer.value.getTemplate();
   metaData.value.updateAt = Dayjs().format("");
   template.meta = metaData.value;
@@ -397,12 +408,7 @@ onMounted(() => {
         テンプレート変更
       </Btn>
       <div class="col-span-1">
-        <TextBox
-          :data="fileName"
-          label="ファイル名(.json)"
-          :input-size="fileName.length"
-          class="fileName"
-        />
+        <TextBox v-model:data="fileName" label="ファイル名(.json)" />
       </div>
       <Btn
         theme="link"
@@ -568,9 +574,3 @@ onMounted(() => {
     />
   </div>
 </template>
-
-<style lang="scss">
-.fileName .icons {
-  flex: 1 1 auto;
-}
-</style>

@@ -51,6 +51,11 @@ useHead({
         ].join("&"),
     },
   ],
+  bodyAttrs: {
+    class: () => {
+      return [hsIsMobile.isIPhone ? "ios-safari" : ""].join(" ");
+    },
+  },
 });
 
 // ---------------------------------------------------
