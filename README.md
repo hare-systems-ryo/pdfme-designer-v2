@@ -1,6 +1,6 @@
-# 📄 pdf-me-editor
+# 📄 pdfme-designer-v2
 
-**pdf-me-editor** は、[pdfme](https://pdfme.com/) のテンプレートエディタをベースに、  
+**pdfme-designer-v2** は、[pdfme](https://pdfme.com/) のテンプレートエディタをベースに、  
 **リスト構造の編集をより直感的に行えるよう拡張したアプリケーション**です。
 
 このアプリは **Docker Compose** を用いてローカル環境で手軽に起動できます。

@@ -462,7 +462,7 @@ onMounted(() => {
         class="fixed right-0 top-0 bottom-0 w-[400px] bg-back1 transition-all"
         :class="overlayIsOpen ? '' : 'translate-x-[100%]'"
       >
-        <div class="p-2">
+        <div class="p-2 flex flex-col max-h-full">
           <div class="flex-c gap-1">
             <Btn
               variant="outlined"
@@ -472,15 +472,15 @@ onMounted(() => {
             >
               <i class="fa-solid fa-angle-right"></i>
             </Btn>
-            <div class="font-semibold">meta/リスト操作</div>
+            <div class="font-semibold ml-2">meta/リスト操作</div>
           </div>
-
-          <div class="text-center mt-2">meta</div>
+          <div class="h-[1px] bg-main0 mt-2"></div>
+          <div class="px-1 mt-2">備考</div>
           <div class="px-1">
             <Textarea v-model:data="metaData.note" />
           </div>
-          <div class="text-center mt-2">リスト操作</div>
-          <div class="mt-2">
+          <div class="h-[1px] bg-main0 my-4"></div>
+          <div class="mt-">
             <Btn
               variant="outlined"
               theme="accent1"
@@ -490,7 +490,7 @@ onMounted(() => {
               リスト追加
             </Btn>
           </div>
-          <div class="flex flex-col gap-4 mt-2">
+          <div class="flex flex-col gap-4 mt-2 overflow-y-scroll">
             <template v-for="(row, index) in metaData.list" :key="index">
               <div class="list-group-item border-accent1 bg-theme2">
                 <div class="flex gap-1 -group">

@@ -31,7 +31,11 @@ export default defineNuxtConfig({
     host: "0.0.0.0",
     port: parseInt(process.env.APP_PORT || "80", 10),
   },
-
+  colorMode: {
+    preference: "light", // デフォルトをlightに固定
+    fallback: "light", // SSR時のフォールバック
+    classSuffix: "", // 'dark-mode'ではなく'dark'クラスを使う
+  },
   build: {
     // モジュールをトランスパイル対象にして Vite が中を素通りしないように
     transpile: ["nuxt-hs-ui-next"],

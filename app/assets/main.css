@@ -145,6 +145,10 @@
 }
 
 
+:root {
+    --ui-text: #202020;
+}
+
 html,
 body {
     font-family     : 'Noto Sans JP', sans-serif;
