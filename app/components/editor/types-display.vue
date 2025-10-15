@@ -25,7 +25,7 @@ const keys = computed(() => {
   if (!schema) return [];
   return schema
     .reduce((ret, row) => {
-      if (row.type !== "text") return ret;
+      if (!["text", "qrcode"].includes(row.type)) return ret;
       ret.push(row.name);
       return ret;
     }, [] as string[])
