@@ -1,0 +1,31 @@
+x-logging: &logging
+  driver: json-file
+  options:
+    max-file: "1"
+    max-size: "10m"
+#----------------------
+services:
+  nuxt:
+    image: node:22-alpine
+    container_name: nuxt-nitro-output
+    working_dir: /app
+    environment:
+      NODE_ENV: "production"
+      # Nitro(Nodeサーバ)がlistenするhost/port
+      HOST: "0.0.0.0"
+      PORT: "3000"
+      TZ: "Asia/Tokyo"
+    # ビルド済み成果物だけを読み取り専用でマウント
+    volumes:
+      - ./.output:/app/.output # ← :ro を外す
+    # ① server の依存を入れる → ② 起動
+    command: >
+      sh -lc "cd .output/server
+      && npm install -g npm@11.6.2
+      && npm i 
+      && node ../server/index.mjs"
+    ports:
+      - "$APP_PORT:3000"
+    restart: unless-stopped
+    logging:
+      <<: *logging

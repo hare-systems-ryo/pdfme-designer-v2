@@ -1,0 +1,62 @@
+/* ----------------------------------------------------------------------------
+  これはmemoです。反映はされません
+----------------------------------------------------------------------------- */
+
+
+:root {
+  --color-main0   : #183C5E;
+  --color-main1   : #2C5A85;
+  --color-main2   : #487CB4;
+  --color-main3   : #A7CDED;
+  --color-main4   : #C4E1FF;
+  --color-accent1 : #FF6600;
+  --color-accent2 : #ffac7c;
+  --color-info    : #2BABB5;
+  --color-success : #2BB60C;
+  --color-warn    : #EAB000;
+  --color-error   : #D80329;
+  --color-link    : #6200EE;
+  --color-download: #11691f;
+  --color-dark    : #224466;
+  --color-back1   : #EDEDED;
+  --color-back2   : #D5D9DD;
+  --color-back3   : #BCCCD5;
+}
+
+.fontawoseme {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+.media {
+  // sm: '640px',
+  // md: '768px',
+  // lg: '1024px',
+  // xl: '1280px',
+  // '2xl': '1536px',
+
+  // sm 640
+  @media screen and (min-width: #{ 0 }px) and (max-width: #{ 640 - 0.1}px) {
+    //
+  }
+
+  // md 768
+  @media screen and (min-width: #{ 0 }px) and (max-width: #{ 768 - 0.1}px) {
+    //
+  }
+
+  // lg 1024
+  @media screen and (min-width: #{ 0 }px) and (max-width: #{ 1024 - 0.1}px) {
+    //
+  }
+
+  // xl 1280
+  @media screen and (min-width: #{ 0 }px) and (max-width: #{ 1280 - 0.1}px) {
+    //
+  }
+
+  // 2xl 1536
+  @media screen and (min-width: #{ 0 }px) and (max-width: #{ 1536 - 0.1}px) {
+    //
+  }
+}

@@ -1,0 +1,349 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@source "../../node_modules/nuxt-hs-ui-next/dist";
+
+@theme static {
+    /* breakpoint */
+    --breakpoint-400 : 400px;
+    --breakpoint-600 : 600px;
+    --breakpoint-800 : 800px;
+    --breakpoint-1000: 1000px;
+    --breakpoint-1200: 1200px;
+    --breakpoint-1400: 1400px;
+    --breakpoint-1600: 1600px;
+    --breakpoint-1800: 1800px;
+    /* container */
+    --container-400  : 400px;
+    --container-600  : 600px;
+    --container-800  : 800px;
+    --container-1000 : 1000px;
+    --container-1200 : 1200px;
+    --container-1400 : 1400px;
+    --container-1600 : 1600px;
+    --container-1800 : 1800px;
+    /* color */
+    --color-main0    : #183C5E;
+    --color-main1    : #2C5A85;
+    --color-main2    : #487CB4;
+    --color-main3    : #A7CDED;
+    --color-main4    : #C4E1FF;
+    --color-accent1  : #FF6600;
+    --color-accent2  : #ffac7c;
+    --color-info     : #2BABB5;
+    --color-success  : #2BB60C;
+    --color-warn     : #EAB000;
+    --color-error    : #D80329;
+    --color-link     : #6200EE;
+    --color-download : #11691f;
+    --color-dark     : #224466;
+    --color-back1    : #EDEDED;
+    --color-back2    : #D5D9DD;
+    --color-back3    : #BCCCD5;
+}
+
+
+@utility flex-cc {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+}
+
+@utility flex-c {
+    display    : flex;
+    align-items: center;
+}
+
+@utility row {
+    display     : flex;
+    margin-left : -6px;
+    margin-right: -6px;
+    flex-wrap   : wrap;
+}
+
+@utility col-1 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12);
+}
+
+@utility col-2 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 2);
+}
+
+@utility col-3 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 3);
+}
+
+@utility col-4 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 4);
+}
+
+@utility col-5 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 5);
+}
+
+@utility col-6 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 6);
+}
+
+@utility col-7 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 7);
+}
+
+@utility col-8 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 8);
+}
+
+@utility col-9 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 9);
+}
+
+@utility col-10 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 *10);
+}
+
+@utility col-11 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 11);
+}
+
+@utility col-12 {
+    padding-left : 6px;
+    padding-right: 6px;
+    flex         : none;
+    width        : calc(100% / 12 * 12);
+}
+
+
+html,
+body {
+    font-family     : 'Noto Sans JP', sans-serif;
+    font-weight     : 400;
+    font-size       : 16px;
+    min-height      : 100%;
+    width           : 100%;
+    position        : relative;
+    background-color: rgb(221, 225, 244);
+}
+
+body {
+    overflow-y: scroll;
+    position  : relative;
+}
+
+
+.f-theme {
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style : normal;
+}
+
+::selection {
+    background-color: hsla(248, 56%, 23%, 0.189) !important;
+    background-color: hsla(248, 56%, 23%, 0.189) !important;
+}
+
+
+.__nuxt {
+    position: relative;
+}
+
+[data-reka-popper-content-wrapper] {
+    z-index: 9999 !important;
+}
+
+.animation-blink {
+    animation       : blink 800ms 0s infinite;
+    transition      : all 200ms;
+    will-change     : animation;
+    transform-origin: top right;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    10% {
+        opacity  : 0;
+        transform: scale(1);
+    }
+
+    20% {
+        opacity  : 1;
+        transform: scale(1.4);
+    }
+
+    30% {
+        opacity  : 0;
+        transform: scale(1);
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes base-loader {
+    0% {
+        left     : 0;
+        transform: translateX(-100%);
+    }
+
+    100% {
+        left     : 100%;
+        transform: translateX(0%);
+    }
+}
+
+
+
+/* ---------------------------------------------------------------- */
+/*スクロールバー*/
+::-webkit-scrollbar {
+    width           : 12px;
+    height          : 12px;
+    border-radius   : 12px;
+    background-color: rgb(202, 204, 216);
+    cursor          : pointer;
+}
+
+/*スクロールバーの軌道*/
+::-webkit-scrollbar-track {
+    border-radius   : 12px;
+    box-shadow      : inset 0 0 1px 1px rgba(108, 108, 108, 0.428);
+    background-color: rgb(220, 220, 220);
+    margin          : 0px;
+    margin-top      : 0px;
+}
+
+
+/*スクロールバーの動く部分*/
+::-webkit-scrollbar-thumb {
+    background-color: rgba(4, 40, 65, 0.5);
+    border-radius   : 12px;
+    box-shadow      : inset 0 0 1px 1px rgb(197, 197, 197);
+    background-color: rgb(163, 163, 163);
+}
+
+
+/* ---------------------------------------------------------------- */
+/* // Tooltipライブラリ Tippy */
+.tippy-content {
+    white-space: pre-wrap;
+    /* \n を改行として解釈 */
+    font-family: monospace, serif;
+}
+
+/* ---------------------------------------------------------------- */
+
+
+[data-reka-popper-content-wrapper] {
+    z-index: 999999 !important;
+}
+
+/* ---------------------------------------------------------------- */
+/* tabulator 色設定 */
+
+.tabulator {
+    border          : 1px solid #999999 !important;
+    background-color: #888 !important;
+}
+
+.tabulator .tabulator-header {
+    border-bottom   : 1px solid #999999;
+    background-color: #666666 !important;
+    color           : #fff;
+}
+
+.tabulator .tabulator-footer {
+    /* border-bottom   : 1px solid #999999; */
+    background-color: #c0c0c0 !important;
+    color           : #fff;
+}
+
+.tabulator .tabulator-page {
+    border          : 1px solid #FF6600 !important;
+    background-color: #ffffff !important;
+    color           : #FF6600 !important;
+    padding         : 2px 8px !important;
+    font-size       : 16px !important;
+}
+
+
+.tabulator .tabulator-page.active {
+    background-color: #df763d !important;
+    color           : #fff !important;
+    cursor          : default !important;
+}
+
+.tabulator .tabulator-page:not(.active):disabled {
+    cursor: default !important;
+}
+
+
+.tabulator .tabulator-page:not(.active):not(:disabled):hover {
+    background-color: #ffdfce !important;
+    color           : #df763d !important;
+    cursor          : pointer;
+}
+
+
+
+.tabulator .tabulator-header .tabulator-col {
+    border-right: 1px solid #aaa !important;
+    background  : #666666 !important;
+}
+
+.tabulator .border-b {
+    border-bottom: 1px solid #999999BB !important;
+}
+
+.tabulator .border-r {
+    border-right: 1px solid #999999BB !important;
+}
+
+.tabulator-row+.tabulator-row {
+    border-top: 1px solid #888 !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .tabulator-row.tabulator-selectable:hover {
+        background-color: #fff7ee !important;
+        cursor          : pointer;
+    }
+}
