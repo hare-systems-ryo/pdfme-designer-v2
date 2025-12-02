@@ -17,12 +17,11 @@ services:
       TZ: "Asia/Tokyo"
     # ビルド済み成果物だけを読み取り専用でマウント
     volumes:
-      - ./.output:/app/.output # ← :ro を外す
+      - ./.output:/app/.output
+      - ./node_modules:/app/node_modules
     # ① server の依存を入れる → ② 起動
     command: >
       sh -lc "cd .output/server
-      && npm install -g npm@11.6.2
-      && npm i 
       && node ../server/index.mjs"
     ports:
       - "$APP_PORT:3000"

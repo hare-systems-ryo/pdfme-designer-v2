@@ -119,20 +119,17 @@ const resetSchemas = (removeKeys: string[] | undefined = undefined) => {
       schema: schemas[0] ?? [],
     };
     if (removeKeys !== undefined) {
-      // removeKey = (removeKey ?? "").replace(/0$/, "");
       removeKeys.forEach((removeKey) => {
         temp.schema = temp.schema.filter((row) => {
           if (removeKey + "0" === row.name) {
             return true;
           }
-          if (removeKey === row.name.replace(/(.*)\d{1,}$/, "$1")) {
-            return false;
-          }
-          return true;
+          return !row.name.startsWith(removeKey);
         });
       });
     }
     const schemaKeys = temp.schema.map((row) => row.name);
+    // console.log({ schemaKeys });
     metaData.value.list.forEach((row) => {
       row.targetList.forEach((targetName) => {
         // 各リスト親要素の処理
@@ -144,18 +141,16 @@ const resetSchemas = (removeKeys: string[] | undefined = undefined) => {
         const baseKeyName = targetName.replace(/(.*)0$/, "$1");
         const base = temp.schema.find((row) => row.name === targetName);
         if (!base) return;
+        console.log({ targetName, baseKeyName, base, s: temp.schema });
         // 既存該当要素の削除
         temp.schema = temp.schema.filter((row) => {
-          if (baseKeyName === row.name.replace(/(.*)\d{1,}$/, "$1")) {
-            return false;
-          }
-          return true;
+          return !row.name.startsWith(baseKeyName);
         });
         // ここで生成する
         for (let i = 0; i < row.count; i++) {
           // if (i === 0) continue;
           const insertObj = ObjectCopy(base);
-          insertObj.name = targetName.replace(/\d{1,}$/, String(i));
+          insertObj.name = baseKeyName + String(i);
           insertObj.position.y = base.position.y + row.span * i;
           temp.schema.push(insertObj);
         }
